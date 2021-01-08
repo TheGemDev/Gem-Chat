@@ -1,13 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React, {useRef, useState } from 'react';
 import './App.css';
-
+import { Button, Form, Input } from 'antd';
+import {YoutubeFilled, TwitterOutlined} from '@ant-design/icons';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/analytics';
 
+
+import Pageheader from './components/pageHeader';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+
+
+
 
 firebase.initializeApp({
   apiKey: "AIzaSyCfrS9gSP-xPdNFhA-1LHmMbFdRevlzxLs",
@@ -23,7 +29,11 @@ firebase.initializeApp({
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const analytics = firebase.analytics();
-
+const FormItem = Form.Item;
+const layout = {
+  labelCol: { span: 100},
+  wrapperCol: { span: 100},
+};
 
 function App() {
 
@@ -32,12 +42,18 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Welcome to Gem Chat :'(</h1>
+        <Pageheader />
+        
+        <a href='https://www.youtube.com/c/TheGemDev?sub_confirmation=1' target='_blank' rel="noreferrer"> <YoutubeFilled  style={{fontSize: '40px'}}/> </a>
+        <a href='https://twitter.com/TheGemDev' target='_blank' rel="noreferrer"> <TwitterOutlined  style={{fontSize: '40px'}}/> </a>
+        <br/>
         <SignOut />
+       
       </header>
 
       <section>
-        {user ? <ChatRoom /> : <SignIn />}
+        <br/>
+        { user ? <ChatRoom /> : <SignIn />}
       </section>
 
     </div>
@@ -53,7 +69,7 @@ function SignIn() {
 
   return (
     <>
-      <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
+      <Button className="sign-in" onClick={signInWithGoogle} type="primary">Sign in with Google</Button>
       <p>Chat here Okay!!!!</p>
     </>
   )
@@ -62,7 +78,7 @@ function SignIn() {
 
 function SignOut() {
   return auth.currentUser && (
-    <button className="sign-out" onClick={() => auth.signOut()}>Sign Out</button>
+    <Button className="sign-out" onClick={() => auth.signOut()} variant="contained" color="primary" disableElevation >Sign Out</Button>
   )
 }
 
@@ -70,7 +86,7 @@ function SignOut() {
 function ChatRoom() {
   const dummy = useRef();
   const messagesRef = firestore.collection('messages');
-  const query = messagesRef.orderBy('createdAt').limit(100);
+  const query = messagesRef.orderBy('createdAt').limit(500);
 
   const [messages] = useCollectionData(query, { idField: 'id' });
 
@@ -78,7 +94,7 @@ function ChatRoom() {
 
 
   const sendMessage = async (e) => {
-    e.preventDefault();
+    //e.preventDefault();
 
     const { uid, photoURL } = auth.currentUser;
 
@@ -102,14 +118,31 @@ function ChatRoom() {
 
     </main>
 
-    <form onSubmit={sendMessage} style={{position: "sticky"}}>
+    <Form 
+    style={{position: 'sticky', bottom: '0'}}
+    {...layout}
+    layout='inline'
+    onFinish={sendMessage}
+    onChange={(e) => setFormValue(e.target.value)}
+    >
+        <FormItem name='title' style={{width: '80%', marginBottom: 0, marginRight: 0 }} >
+        <Input 
+        placeholder='Type a message'
+        value={formValue}
+        allowClear
+        />
+        </FormItem>
+        <FormItem /*{...tailLayout}*/ style={{marginBottom: 0, marginRight: 0, width: '20%' }}>
+        <Button 
+        type='primary'
+        htmlType='submit'
+        disabled={!formValue}
+        >Send</Button>
+        </FormItem>
+    </Form>
 
-      <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="say something nice" />
-
-      <button type="submit" disabled={!formValue}>🕊️</button>
-
-    </form>
-  </>)
+    
+</>)
 }
 
 
@@ -125,6 +158,5 @@ function ChatMessage(props) {
     </div>
   </>)
 }
-
 
 export default App;
