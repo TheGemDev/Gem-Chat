@@ -20,7 +20,7 @@ function App() {
 
   return (
     <Layout className="App">
-      <Layout.Header>
+      <header>
         <PageHeader
           title="Gem Chat App (0.0.1 beta-3)"
           extra={
@@ -43,7 +43,7 @@ function App() {
             </>
           }
         />
-      </Layout.Header>
+      </header>
 
       <Layout.Content>{user ? <ChatRoom /> : <SignIn />}</Layout.Content>
     </Layout>
