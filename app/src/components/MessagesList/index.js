@@ -4,7 +4,6 @@ import Message from "./Message";
 import { firestore } from "../../utils/firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-
 const MessagesList = () => {
   const bottomElement = useRef();
 

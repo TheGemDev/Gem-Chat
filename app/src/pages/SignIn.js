@@ -15,7 +15,7 @@ const SignInPage = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        textAlign: "center"
+        textAlign: "center",
       }}
     >
       <form>

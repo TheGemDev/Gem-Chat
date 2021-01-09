@@ -22,7 +22,6 @@ function App() {
         <Header />
         <Layout.Content>
           <Switch>
-
             <Route path="/auth">
               <SignInPage />
             </Route>
@@ -40,7 +39,6 @@ function App() {
                 }}
               />
             </Route>
-
           </Switch>
         </Layout.Content>
       </Layout>
