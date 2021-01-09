@@ -1,158 +1,51 @@
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
 
-import { Layout, Button, Form, Input, PageHeader } from "antd";
-import { YoutubeFilled, TwitterOutlined } from "@ant-design/icons";
-import firebase from "./utils/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import { Layout } from "antd";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
-const auth = firebase.auth();
-const firestore = firebase.firestore();
+import RequireAuth from "./utils/RequireAuth";
+import Header from "./components/Header";
 
-const layout = {
-  labelCol: { span: 100 },
-  wrapperCol: { span: 100 },
-};
+import ChatRoomPage from "./pages/ChatRoom";
+import SignInPage from "./pages/SignIn";
 
 function App() {
-  const [user] = useAuthState(auth);
-
   return (
-    <Layout className="App">
-      <header>
-        <PageHeader
-          title="Gem Chat App (0.0.1 beta-3)"
-          extra={
-            <>
-              <a
-                href="https://www.youtube.com/c/TheGemDev?sub_confirmation=1"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <YoutubeFilled style={{ fontSize: "40px" }} />
-              </a>
-              <a
-                href="https://twitter.com/TheGemDev"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <TwitterOutlined style={{ fontSize: "40px" }} />
-              </a>
-              <SignOut />
-            </>
-          }
-        />
-      </header>
+    <Router>
+      <Layout>
+        <Header />
+        <Layout.Content>
+          <Switch>
 
-      <Layout.Content>{user ? <ChatRoom /> : <SignIn />}</Layout.Content>
-    </Layout>
+            <Route path="/auth">
+              <SignInPage />
+            </Route>
+
+            <Route path="/chat">
+              <RequireAuth>
+                <ChatRoomPage />
+              </RequireAuth>
+            </Route>
+
+            <Route path="/">
+              <Redirect
+                to={{
+                  pathname: "/chat",
+                }}
+              />
+            </Route>
+
+          </Switch>
+        </Layout.Content>
+      </Layout>
+    </Router>
   );
 }
-
-const SignIn = () => (
-  <Button
-    className="sign-in"
-    onClick={() => auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())}
-    type="primary"
-  >
-    Sign in with Google
-  </Button>
-);
-
-const SignOut = () =>
-  auth.currentUser && (
-    <Button
-      className="sign-out"
-      onClick={() => auth.signOut()}
-      variant="contained"
-      color="primary"
-      disableElevation
-    >
-      Sign Out
-    </Button>
-  );
-
-function ChatRoom() {
-  const bottomElement = useRef();
-  const [formValue, setFormValue] = useState("");
-
-  const messagesRef = firestore.collection("messages");
-  const query = messagesRef.orderBy("createdAt").limit(500);
-  const [messages] = useCollectionData(query, { idField: "id" });
-
-  useEffect(() => {
-    bottomElement.current.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  const sendMessage = (e) => {
-    const { uid, photoURL } = auth.currentUser;
-    setFormValue("");
-    messagesRef.add({
-      text: formValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      uid,
-      photoURL,
-    });
-  };
-
-  return (
-    <>
-      <main>
-        {messages &&
-          messages.map((msg) => <ChatMessage key={msg.id} {...msg} />)}
-
-        <span ref={bottomElement}></span>
-      </main>
-
-      <Form
-        style={{ position: "sticky", bottom: "0", width: "100%" }}
-        {...layout}
-        layout="inline"
-        onFinish={sendMessage}
-        onChange={(e) => setFormValue(e.target.value)}
-      >
-        <Form.Item
-          name="title"
-          style={{ width: "80%", marginBottom: 0, marginRight: 0 }}
-        >
-          <Input placeholder="Type a message" value={formValue} allowClear />
-        </Form.Item>
-        <Form.Item
-          /*{...tailLayout}*/ style={{
-            marginBottom: 0,
-            marginRight: 0,
-            width: "20%",
-          }}
-        >
-          <Button
-            style={{ width: "100%" }}
-            type="primary"
-            htmlType="submit"
-            disabled={!formValue}
-          >
-            Send
-          </Button>
-        </Form.Item>
-      </Form>
-    </>
-  );
-}
-
-const ChatMessage = ({ text, uid, photoURL }) => {
-  const messageClass =
-    "message " + uid === auth.currentUser.uid ? "sent" : "received";
-  return (
-    <div className={messageClass}>
-      <img
-        alt={"img"}
-        src={
-          photoURL || "https://api.adorable.io/avatars/23/abott@adorable.png"
-        }
-      />
-      <p>{text}</p>
-    </div>
-  );
-};
 
 export default App;

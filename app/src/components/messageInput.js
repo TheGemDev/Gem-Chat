@@ -1,55 +1,58 @@
-// this would be available in future updates
+import React, { useState } from "react";
 
-import React, { useState, useRef } from "react";
-import { Input, Form, Button } from "antd";
+import { Form, Button, Input } from "antd";
+import firebase, { auth, firestore } from "../utils/firebase";
 
-const layout = {
-  labelCol: { span: 100 },
-  wrapperCol: { span: 100 },
-};
+const MessageInput = () => {
+  const [message, setMessage] = useState("");
 
-//available in future updates
+  const messagesRef = firestore.collection("messages");
+  const sendMessage = () => {
+    setMessage("");
+    const { uid, photoURL } = auth.currentUser;
+    messagesRef.add({
+      text: message,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      uid,
+      photoURL,
+    });
+  };
 
-/*const tailLayout = {
-   wrapperCol:  {offset: 1, span: 100 }
-};*/
-
-const FormItem = Form.Item;
-
-//export this in the future
-
-function Messageinput() {
   return (
     <Form
-      style={{ position: "sticky", bottom: "0" }}
-      {...layout}
+      style={{ position: "sticky", bottom: "0", width: "100%" }}
       layout="inline"
-      onFinish={console.log("done")}
+      onFinish={sendMessage}
     >
-      <FormItem
-        name="title"
+      <Form.Item
+        name="message"
         style={{ width: "80%", marginBottom: 0, marginRight: 0 }}
       >
         <Input
-          placeholder="hello"
-          //value={!formValue}
+          placeholder="Type a message"
+          value={message}
+          allowClear
+          onChange={(e) => setMessage(e.target.value)}
         />
-      </FormItem>
-      <FormItem
-        /*{...tailLayout}*/ style={{
+      </Form.Item>
+      <Form.Item
+        style={{
           marginBottom: 0,
           marginRight: 0,
           width: "20%",
         }}
       >
         <Button
+          style={{ width: "100%" }}
           type="primary"
           htmlType="submit"
-          //disabled={!formValue}
+          disabled={!message}
         >
           Send
         </Button>
-      </FormItem>
+      </Form.Item>
     </Form>
   );
-}
+};
+
+export default MessageInput;
