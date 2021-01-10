@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Radio } from 'antd';
+import React, { useState } from "react";
+import { Form, Input, Button, Radio } from "antd";
 
 const FormLayoutDemo = () => {
   const [form] = Form.useForm();
-  const [formLayout, setFormLayout] = useState('horizontal');
+  const [formLayout, setFormLayout] = useState("horizontal");
 
   const onFormLayoutChange = ({ layout }) => {
     setFormLayout(layout);
   };
 
   const formItemLayout =
-    formLayout === 'horizontal'
+    formLayout === "horizontal"
       ? {
           labelCol: {
             span: 4,
@@ -21,7 +21,7 @@ const FormLayoutDemo = () => {
         }
       : null;
   const buttonItemLayout =
-    formLayout === 'horizontal'
+    formLayout === "horizontal"
       ? {
           wrapperCol: {
             span: 14,
