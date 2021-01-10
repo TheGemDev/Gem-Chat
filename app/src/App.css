@@ -1,33 +1,14 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 
 body {
-  background-color: #ffffff;
+  background-color: rgb(240, 242, 245);
   text-align: left;
 }
 
-
-/*Form {
-    height: 6vh;
-    position: fixed;
-    bottom: 0;
-    background-color: #fff;
-    width: 60%;
-    max-width: 728px;
-    font-size: 1.5rem;
-    float: left;
-  }
-   form Button {
-     border-radius: 50%;
-
-
-   }*/
-   
 img {
   border-radius: 20%;
-  
 }
 
 .MuiButton-root {
   border-radius: 8px;
-} 
-  
+}
