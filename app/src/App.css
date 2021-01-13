@@ -5,10 +5,50 @@ body {
   text-align: left;
 }
 
-img {
-  border-radius: 20%;
+
+
+
+
+p {
+  max-width: 100%;
+  margin-bottom: 12px;
+  line-height: 24px;
+  padding: 10px 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 50px;
+  position: relative;
+  text-align: left;
 }
 
-.MuiButton-root {
-  border-radius: 8px;
+.message {
+  display: flex;
+  align-items: center;
+}
+
+
+.sent {
+  flex-direction: row-reverse;
+}
+
+.sent p {
+  color: black;
+  background: #0b93f6;
+  align-self: flex-end;
+}
+.received p {
+  background: #e5e5ea;
+  color: black;
+}
+
+img {
+  width: 40px;
+  height: 40px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 50px;
+  margin: 2px 0;
+  display: flex;
 }

@@ -1,13 +1,13 @@
 import React from "react";
 
-import { PageHeader } from "antd";
+import { PageHeader, Divider } from "antd";
 import { YoutubeFilled, TwitterOutlined } from "@ant-design/icons";
 import { SignOut } from "./AuthButton";
 
 const Header = () => (
   <header>
     <PageHeader
-      title="Gem Chat App (0.0.1 beta-3)"
+      title="Gem Chat App (0.0.1 beta-4)"
       extra={
         <div
           style={{
@@ -35,6 +35,7 @@ const Header = () => (
         </div>
       }
     />
+  <Divider />
   </header>
 );
 

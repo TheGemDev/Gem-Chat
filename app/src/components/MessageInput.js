@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { Form, Button, Input } from "antd";
 import firebase, { auth, firestore } from "../utils/firebase";
+import { SendOutlined } from "@ant-design/icons";
 
 const MessageInput = () => {
   const [message, setMessage] = useState("");
@@ -47,12 +48,12 @@ const MessageInput = () => {
           type="primary"
           htmlType="submit"
           disabled={!message}
-        >
-          Send
+        ><SendOutlined />
         </Button>
       </Form.Item>
     </Form>
   );
+  
 };
 
 export default MessageInput;
