@@ -1,0 +1,52 @@
+{
+  "name": "gem-chat",
+  "version": "0.0.1-beta-4",
+  "author": {
+    "name": "Gabriel Momoh",
+    "url": "https://github.com/TheGemDev"
+  },
+  "bugs": {
+    "url": "https://github.com/TheGemDev/Gem-Chat/issues"
+  },
+  "repository": {
+    "url": "https://github.com/TheGemDev/Gem-Chat.git"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "antd": "^4.10.0",
+    "firebase": "^8.2.1",
+    "fontsource-roboto": "^4.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-firebase-hooks": "^2.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "format": "prettier --write **/*.js"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
+}

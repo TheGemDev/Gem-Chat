@@ -1,0 +1,52 @@
+@import "~antd/dist/antd.css";
+
+body {
+  background-color: #e9e5df;
+}
+
+p {
+  max-width: 100%;
+  margin-bottom: 12px;
+  line-height: 24px;
+  padding: 10px 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 50px;
+  position: relative;
+  text-align: left;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+}
+
+.sent {
+  flex-direction: row-reverse;
+}
+
+.sent p {
+  color: black;
+  background: #e9e5df;
+  align-self: flex-end;
+}
+.received p {
+  background: #e9e5df;
+  color: black;
+}
+
+img {
+  width: 40px;
+  height: 40px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 50px;
+  margin: 2px 0;
+  display: flex;
+}
+
+.ant-layout {
+  background-color: #f3f2ef;
+}
