@@ -10,30 +10,31 @@ import {
 } from "react-router-dom";
 
 import RequireAuth from "./utils/RequireAuth";
-import Header from "./components/surfaces/demo";
+//import Header from "./components/surfaces/demo";
 
-import ChatRoomPage from "./pages/ChatRoom";
-import SignInPage from "./pages/SignIn";
+import ChatRoom from "./pages/chatroom/ChatRoom";
+//import SignInPage from "./pages/SignIn";
+import Start from "./pages/start/Start";
 
 function App() {
   return (
     <Router>
       <Layout>
-        <Header />
+        {/*<Header />*/}
         <Divider />
         <Layout.Content>
           <Switch>
-            <Route path='/auth'>
-              <SignInPage />
+            <Route path="/auth">
+              <ChatRoom />
             </Route>
 
-            <Route path='/chat'>
+            <Route path="/chat">
               <RequireAuth>
-                <ChatRoomPage />
+                <ChatRoom />
               </RequireAuth>
             </Route>
 
-            <Route path='/'>
+            <Route path="/">
               <Redirect
                 to={{
                   pathname: "/chat",
