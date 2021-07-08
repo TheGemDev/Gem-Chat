@@ -16,8 +16,10 @@ import {
 } from "@chakra-ui/react";
 
 import { Join, SignIn } from "../../components/authbutton/Authbutton";
-import Logo from "../../res/index"
 
+import Logo from "../../res/index";
+
+import { IonFooter, IonToolbar, IonTitle, IonAvatar } from "@ionic/react";
 
 const Start: React.FC = () => {
   return (
@@ -57,12 +59,16 @@ const Start: React.FC = () => {
             <Divider />
             //signin
             <SignIn />
-
             <Box
               bg={useColorModeValue("gray.50", "gray.900")}
               color={useColorModeValue("gray.700", "gray.200")}></Box>
           </Stack>
-          <Text>version 1.0.0</Text>
+
+          <IonFooter>
+            <IonToolbar>
+              <IonTitle size='small'>Version 1.0.0</IonTitle>
+            </IonToolbar>
+          </IonFooter>
         </Stack>
       </Container>
     </>

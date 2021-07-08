@@ -8,12 +8,14 @@ import {
   IonMenu,
   IonMenuToggle,
   IonNote,
+  IonAvatar,
 } from "@ionic/react";
 
 import { useLocation } from "react-router-dom";
 import {
   archiveOutline,
   archiveSharp,
+  archive,
   bookmarkOutline,
   heartOutline,
   heartSharp,
@@ -21,17 +23,25 @@ import {
   mailSharp,
   paperPlaneOutline,
   paperPlaneSharp,
+  paperPlane,
   trashOutline,
   trashSharp,
   warningOutline,
   warningSharp,
   peopleCircleOutline,
   peopleCircleSharp,
+  peopleCircle,
   homeOutline,
   homeSharp,
+  home,
+  logOutOutline,
+  logOutSharp,
+  logOut,
 } from "ionicons/icons";
 import "./Menu.css";
 
+import { AvatarBadge, Avatar } from "@chakra-ui/avatar";
+import { Wrap, WrapItem } from "@chakra-ui/react";
 import { auth } from "../utils/firebase";
 
 interface AppPage {
@@ -43,28 +53,34 @@ interface AppPage {
 
 const appPages: AppPage[] = [
   {
-    title: "Chat",
-    url: "/page/Chat",
+    title: "Chats",
+    url: "/Chat",
     iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp,
+    mdIcon: paperPlane,
   },
   {
     title: "Group",
-    url: "/page/Group",
+    url: "/Group",
     iosIcon: peopleCircleOutline,
-    mdIcon: peopleCircleSharp,
+    mdIcon: peopleCircle,
   },
   {
     title: "House",
-    url: "/page/House",
+    url: "/House",
     iosIcon: homeOutline,
-    mdIcon: homeSharp,
+    mdIcon: home,
   },
   {
     title: "Status",
-    url: "/page/Status",
+    url: "/Status",
     iosIcon: archiveOutline,
-    mdIcon: archiveSharp,
+    mdIcon: archive,
+  },
+  {
+    title: "Logout",
+    url: "/Logout",
+    iosIcon: logOutOutline,
+    mdIcon: logOut,
   },
 ];
 
@@ -73,13 +89,16 @@ const labels = ["Family", "Friends", "Notes", "Work", "Travel", "Reminders"];
 const Menu: React.FC = () => {
   const location = useLocation();
   const user = auth.currentUser;
-
+  const unknown: string = "User";
   return (
     <IonMenu contentId='main' type='overlay'>
       <IonContent>
+        {/*<IonAvatar>
+          <img src={user?.photoURL} />
+        </IonAvatar>*/}
         <IonList id='inbox-list'>
-          <IonListHeader>{user?.displayName}</IonListHeader>
-          <IonNote>description</IonNote>
+          <IonListHeader>{user?.displayName || unknown}</IonListHeader>
+          <IonNote>about User...</IonNote>
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
