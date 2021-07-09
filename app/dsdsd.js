@@ -1,1 +1,0 @@
-import Config from "./src/utils"
