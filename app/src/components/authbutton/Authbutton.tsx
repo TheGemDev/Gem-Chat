@@ -39,12 +39,15 @@ export const SignOut = () => {
     !loading &&
     user && (
       <Button
-        variant={"outline"}
         colorScheme={"red"}
+        bg={"red.400"}
+        rounded={"full"}
+        px={10}
+        _hover={{
+          bg: "red.500",
+        }}
         size={"lg"}
-        onClick={() =>
-          auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-        }>
+        onClick={() => auth.signOut()}>
         Sign Out
       </Button>
     )
