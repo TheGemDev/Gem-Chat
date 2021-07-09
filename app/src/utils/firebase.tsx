@@ -5,6 +5,23 @@ import "firebase/auth";
 import "firebase/analytics";
 import Config from "./config";
 
+//create a config.tsx file in the same folder using this template
+
+/*
+const Config = {
+  apiKey: "",
+  authDomain: "",
+  databaseURL:
+    "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+  measurementId: "",
+}
+export default Config;
+*/
+
 const firebaseConfig = {
   authDomain: Config.authDomain,
   databaseURL: Config.databaseURL,
@@ -15,6 +32,7 @@ const firebaseConfig = {
   appId: Config.appId,
   measurementId: Config.measurementId,
 };
+
 // Configure Firebase
 firebase.initializeApp(firebaseConfig);
 

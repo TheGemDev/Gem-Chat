@@ -1,10 +1,10 @@
 import React from "react";
 
 import { Button } from "@chakra-ui/react";
-import firebase, { auth } from "../utils/firebase";
+import firebase, { auth } from "../../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-export const Join = () => (
+export const Join: React.FC = () => (
   <Button
     colorScheme={"red"}
     bg={"red.400"}
@@ -14,9 +14,10 @@ export const Join = () => (
       bg: "red.500",
     }}
     size={"lg"}
-    onClick={() => auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())}
-  >
-    Join with
+    onClick={() =>
+      auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    }>
+    Join the House
   </Button>
 );
 
@@ -25,8 +26,9 @@ export const SignIn = () => (
     variant={"outline"}
     colorScheme={"red"}
     size={"lg"}
-    onClick={() => auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())}
-  >
+    onClick={() =>
+      auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    }>
     Sign In
   </Button>
 );
@@ -37,13 +39,15 @@ export const SignOut = () => {
     !loading &&
     user && (
       <Button
-        variant={"outline"}
         colorScheme={"red"}
+        bg={"red.400"}
+        rounded={"full"}
+        px={10}
+        _hover={{
+          bg: "red.500",
+        }}
         size={"lg"}
-        onClick={() =>
-          auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-        }
-      >
+        onClick={() => auth.signOut()}>
         Sign Out
       </Button>
     )
