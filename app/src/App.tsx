@@ -33,7 +33,7 @@ import { auth } from "../src/utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const App: React.FC = () => {
-  const [user] = useAuthState(auth);
+  const user = auth.currentUser;
   return (
     <IonApp>
       <IonReactRouter>
